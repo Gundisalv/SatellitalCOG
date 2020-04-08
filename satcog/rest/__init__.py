@@ -1,26 +1,24 @@
 from flask import Flask
 from flask_restplus import Api
-from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from satcog.config import Config
-from satcog.log import set_config
+from satcog.log import load_logger
 import os
 
 
 app = None
 _api = None
-jwt = None
 
 
 def create_app():
     global app, _api, jwt
 
-    os.environ['FLASK_ENV'] = Config.FLASK['ENV']
-    set_config()
+    os.environ['FLASK_ENV'] = Config.flask['env']
+    load_logger()
 
     app = Flask(__name__, instance_relative_config=True)
-    app.config['TESTING'] = Config.FLASK['TESTING']
-    app.config['DEBUG'] = Config.FLASK['TESTING']
+    app.config['TESTING'] = Config.flask['testing']
+    app.config['DEBUG'] = Config.flask['testing']
     app.url_map.strict_slashes = False
 
     CORS(app)
@@ -42,7 +40,7 @@ def create_app():
                title='Optiagro API V2',
                description='Complete REST API', authorizations=authorizations)
 
-    app.config['JWT_SECRET_KEY'] = Config.FLASK['JWT_SECRET']
+    app.config['JWT_SECRET_KEY'] = Config.flask['JWT_SECRET']
     app.config['ERROR_404_HELP'] = False
     app.config['ERROR_INCLUDE_MESSAGE'] = False
     jwt = JWTManager(app)

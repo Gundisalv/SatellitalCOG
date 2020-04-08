@@ -1,4 +1,0 @@
-FLASK:
-  ENV: 'development'
-  TESTING: true
-  JWT_SECRET: 'super-secret'
