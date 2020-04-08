@@ -1,4 +1,5 @@
 import logging
+import logging.config
 
 from satcog.config import Config
 

@@ -13,12 +13,12 @@ _api = None
 def create_app():
     global app, _api, jwt
 
-    os.environ['FLASK_ENV'] = Config.flask['env']
+    os.environ['FLASK_ENV'] = Config['flask']['env']
     load_logger()
 
     app = Flask(__name__, instance_relative_config=True)
-    app.config['TESTING'] = Config.flask['testing']
-    app.config['DEBUG'] = Config.flask['testing']
+    app.config['TESTING'] = Config['flask']['testing']
+    app.config['DEBUG'] = Config['flask']['testing']
     app.url_map.strict_slashes = False
 
     CORS(app)
@@ -40,7 +40,7 @@ def create_app():
                title='Optiagro API V2',
                description='Complete REST API', authorizations=authorizations)
 
-    app.config['JWT_SECRET_KEY'] = Config.flask['JWT_SECRET']
+    app.config['JWT_SECRET_KEY'] = Config['flask']['JWT_SECRET']
     app.config['ERROR_404_HELP'] = False
     app.config['ERROR_INCLUDE_MESSAGE'] = False
     jwt = JWTManager(app)
