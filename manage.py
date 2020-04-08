@@ -1,5 +1,5 @@
 from flask_script import Manager
-from s2cog.rest import create_app
+from satcog.rest import create_app
 
 manager = Manager(create_app())
 
